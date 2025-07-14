@@ -1,0 +1,6 @@
+{
+  "name": "FinesseCall: AI-Powered Call Center",
+  "description": "A comprehensive call center dashboard with conference calling, live transfers, AI summarization, and quality monitoring. Monitor agents, track call history, and leverage AI to boost productivity.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

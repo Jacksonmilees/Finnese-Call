@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinesseCall</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://rsms.me/inter/inter.css');
+      html { font-family: 'Inter', sans-serif; }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.525.0",
+    "recharts": "https://esm.sh/recharts@^2.13.0-alpha.4",
+    "@google/genai": "https://esm.sh/@google/genai@^0.15.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <audio id="incoming-ringtone" loop preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-marimba-waiting-5-437.mp3"></audio>
+    <audio id="outgoing-ringtone" loop preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-phone-call-ring-1244.mp3"></audio>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
