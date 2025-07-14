@@ -17,6 +17,7 @@ import useRealApi from './hooks/useRealApi';
 import { Agent, AuthenticatedUser, Call, CrmContact, LeaderboardEntry, AnalyticsData } from './types/index';
 
 const App: React.FC = () => {
+  // All hooks must be declared at the top, before any return or conditional
   const {
     stats,
     agents,
@@ -54,20 +55,17 @@ const App: React.FC = () => {
 
   const [isAgentModalOpen, setIsAgentModalOpen] = useState(false);
   const [agentToEdit, setAgentToEdit] = useState<Agent | undefined>(undefined);
-  
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [contactToEdit, setContactToEdit] = useState<CrmContact | undefined>(undefined);
-
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<Agent | CrmContact | null>(null);
-
   const [toast, setToast] = useState<{ message: string, type: 'success' | 'error' } | null>(null);
-  
   const [isPlayerOpen, setIsPlayerOpen] = useState(false);
   const [callToPlay, setCallToPlay] = useState<Call | null>(null);
-  
   const [callToMonitor, setCallToMonitor] = useState<Call | null>(null);
-  
+  const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
+  const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([]);
+
   useEffect(() => {
     if (toast) {
       const timer = setTimeout(() => setToast(null), 3000);
@@ -176,15 +174,6 @@ const App: React.FC = () => {
     showToast('Call rejected', 'success');
   };
 
-  if (!currentUser) {
-    return <Login onLogin={login} />;
-  }
-  
-  const RoleIcon = currentUser.role === 'admin' ? Shield : User;
-  const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
-  const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([]);
-
-  // Fetch analytics data for admin
   useEffect(() => {
     if (currentUser?.role === 'admin') {
       const fetchData = async () => {
@@ -197,7 +186,6 @@ const App: React.FC = () => {
           setLeaderboardData(leaderboard);
         } catch (error) {
           console.error('Failed to fetch analytics data:', error);
-          // Set default empty data to prevent errors
           setAnalyticsData({
             callVolume: [],
             agentPerformance: [],
@@ -209,6 +197,12 @@ const App: React.FC = () => {
       fetchData();
     }
   }, [currentUser?.role, getAnalyticsData, getLeaderboardData]);
+
+  if (!currentUser) {
+    return <Login onLogin={login} />;
+  }
+  
+  const RoleIcon = currentUser.role === 'admin' ? Shield : User;
   
   const contactForCallManager = (call: Call | null): CrmContact | null => {
       if(!call) return null;
